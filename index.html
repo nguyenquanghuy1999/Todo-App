@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="todoApp">
+        <h3> {{message}} </h3>
+        <form name="todo-form" method="post" action="" v-on:submit.prevent="addTask">
+          <input name="add-todo" type="text" v-model="addTodoInput" v-bind:class="{error: hasError}"/>
+          <button type="submit">Add</button>
+        </form>
+
+        <div class="todo-lists" v-if="lists.length">
+            <h3>My Todo Tasks</h3>
+            <ul>
+                <li v-for="list in filterLists" :key="list.id">
+                    <input type="checkbox" v-on:change="completeTask(list)" v-bind:checked="list.isComplete"/>
+                    <span class="title"
+                        contenteditable="true"
+                        v-on:keydown.enter="updateTask($event, list)"
+                        v-on:blur="updateTask($event, list)"
+                        v-bind:class="{completed: list.isComplete}"> {{list.title}}
+                    </span>
+                    <span class="remove" v-on:click="removeTask(list)">x</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+
+    
+
+  
+    
+</body>
+</html>
